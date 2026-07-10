@@ -56,34 +56,3 @@ web-2/
 └── server.js             # Main server file
 ```
 
----
-
-## 📊 Database Schema (ERD)
-
-```mermaid
-erDiagram
-    USERS ||--o{ CATEGORIES : "defines"
-    USERS ||--o{ TRANSACTIONS : "performs"
-    CATEGORIES ||--o{ TRANSACTIONS : "classifies"
-
-    USERS {
-        int id PK
-        string username
-        string email
-        string password_hash
-    }
-    CATEGORIES {
-        int id PK
-        int user_id FK "NULL for default categories"
-        string name
-        string type "income/expense"
-    }
-    TRANSACTIONS {
-        int id PK
-        int user_id FK
-        int category_id FK
-        real amount
-        string description
-        string date "YYYY-MM-DD"
-    }
-```
