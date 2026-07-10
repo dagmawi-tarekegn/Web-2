@@ -377,22 +377,17 @@ a:hover {
 }
 
 .metric-card {
-    position: relative;
-    overflow: hidden;
+    border-width: 2px;
+    transition: var(--transition-smooth);
 }
 
-.metric-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-}
+.metric-income { border-color: var(--success-color); }
+.metric-expense { border-color: var(--error-color); }
+.metric-balance { border-color: var(--primary-color); }
 
-.metric-income::before { background: var(--success-color); }
-.metric-expense::before { background: var(--error-color); }
-.metric-balance::before { background: var(--primary-color); }
+.metric-income:hover { border-color: var(--success-color); }
+.metric-expense:hover { border-color: var(--error-color); }
+.metric-balance:hover { border-color: var(--primary-color); }
 
 .metric-info {
     display: flex;
