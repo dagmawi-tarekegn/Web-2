@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 /**
@@ -83,6 +84,72 @@ const register = async (req, res, next) => {
     }
 };
 
+/**
+ * Handle user login
+ */
+const login = async (req, res, next) => {
+    try {
+        const { usernameOrEmail, password } = req.body;
+
+        // 1. Validation
+        if (!usernameOrEmail || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Username/Email and password are required.'
+            });
+        }
+
+        const trimmedInput = usernameOrEmail.trim();
+
+        // 2. Find user by username or email
+        let user = await User.findByUsername(trimmedInput);
+        if (!user) {
+            user = await User.findByEmail(trimmedInput.toLowerCase());
+        }
+
+        // 3. If user not found, return 401 (generic message for security)
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid username/email or password.'
+            });
+        }
+
+        // 4. Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password_hash);
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid username/email or password.'
+            });
+        }
+
+        // 5. Generate JWT token
+        const secret = process.env.JWT_SECRET || 'finance_tracker_jwt_secret_token_key_2026';
+        const token = jwt.sign(
+            { id: user.id, username: user.username },
+            secret,
+            { expiresIn: '24h' }
+        );
+
+        // 6. Return token and user info
+        return res.json({
+            success: true,
+            message: 'Login successful.',
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
-    register
+    register,
+    login
 };
