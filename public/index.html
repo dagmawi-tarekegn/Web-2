@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Personal Finance Tracker</title>
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="fade-in">
+
+    <!-- Top Sticky Header Navigation -->
+    <header class="main-header">
+        <div class="header-brand">
+            <h2><i class="fa-solid fa-wallet"></i> FinanceTracker</h2>
+        </div>
+        <div class="user-profile">
+            <span class="user-welcome">Welcome, <strong id="username-display">User</strong></span>
+            <button class="btn-logout" id="logout-btn">
+                <span>Sign Out</span>
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        
+        <!-- Alerts Container -->
+        <div id="alert-box" class="alert d-none">
+            <i id="alert-icon" class="fa-solid"></i>
+            <span id="alert-text"></span>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- Summary metrics cards -->
+            <section class="metrics-grid">
+                <!-- Net Balance -->
+                <div class="card metric-card metric-balance">
+                    <div class="metric-info">
+                        <span class="metric-title">Net Balance</span>
+                        <div class="metric-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    </div>
+                    <div class="metric-value" id="net-balance">$0.00</div>
+                </div>
+
+                <!-- Total Income -->
+                <div class="card metric-card metric-income">
+                    <div class="metric-info">
+                        <span class="metric-title">Total Income</span>
+                        <div class="metric-icon"><i class="fa-solid fa-circle-arrow-up"></i></div>
+                    </div>
+                    <div class="metric-value text-success" id="total-income">$0.00</div>
+                </div>
+
+                <!-- Total Expenses -->
+                <div class="card metric-card metric-expense">
+                    <div class="metric-info">
+                        <span class="metric-title">Total Expenses</span>
+                        <div class="metric-icon"><i class="fa-solid fa-circle-arrow-down"></i></div>
+                    </div>
+                    <div class="metric-value text-danger" id="total-expenses">$0.00</div>
+                </div>
+            </section>
+
+            <!-- Dashboard Split Forms and Data Lists Workspace -->
+            <section class="workspace-grid">
+                
+                <!-- Left Column: forms (create category / transaction) -->
+                <div class="workspace-column">
+                    
+                    <!-- Create Transaction Form Card -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-money-bill-transfer"></i> Add Transaction</h3>
+                        <form id="transaction-form">
+                            <div class="form-group">
+                                <label for="tx-category">Category</label>
+                                <div class="input-wrapper">
+                                    <select id="tx-category" class="form-control" required>
+                                        <option value="" disabled selected>Select category</option>
+                                    </select>
+                                    <i class="fa-solid fa-tags"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="tx-amount">Amount ($)</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="tx-amount" class="form-control" placeholder="0.00" step="0.01" min="0.01" required>
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tx-date">Date</label>
+                                    <div class="input-wrapper">
+                                        <input type="date" id="tx-date" class="form-control" required>
+                                        <i class="fa-solid fa-calendar-day"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tx-description">Description (Optional)</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="tx-description" class="form-control" placeholder="Rent, dinner, grocery...">
+                                    <i class="fa-solid fa-pen-nib"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn" id="tx-submit-btn">
+                                <span>Save Transaction</span>
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Create Custom Category Form Card -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-folder-plus"></i> Add Custom Category</h3>
+                        <form id="category-form">
+                            <div class="form-group">
+                                <label for="cat-name">Category Name</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="cat-name" class="form-control" placeholder="e.g. Subscriptions, Side Gig" required>
+                                    <i class="fa-solid fa-folder-open"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cat-type">Type</label>
+                                <div class="input-wrapper">
+                                    <select id="cat-type" class="form-control" required>
+                                        <option value="" disabled selected>Select category type</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                    <i class="fa-solid fa-list-check"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn" id="cat-submit-btn">
+                                <span>Create Category</span>
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Data charts / breakdown lists and transaction tables -->
+                <div class="workspace-column">
+                    
+                    <!-- Category Breakdown Dynamic List Card -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-chart-pie"></i> Category Breakdown</h3>
+                        <div id="breakdown-container" class="breakdown-list">
+                            <!-- Populated dynamically via JS -->
+                            <div class="empty-placeholder">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <p>No transaction data available yet.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions list table Card -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Transactions</h3>
+                        <div class="table-responsive">
+                            <table class="table" id="transactions-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th style="width: 50px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-body">
+                                    <!-- Populated dynamically via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="table-placeholder" class="empty-placeholder d-none">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>No transactions added yet. Try adding one on the left!</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Client-side script -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
