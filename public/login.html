@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Register - Finance Tracker</title>
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="fade-in">
+
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            
+            <!-- Branding Header -->
+            <div class="auth-brand">
+                <h1><i class="fa-solid fa-wallet"></i> FinanceTracker</h1>
+                <p>Manage your income, expenses, and savings seamlessly</p>
+            </div>
+
+            <!-- Authentic glass card card -->
+            <div class="card">
+                
+                <!-- Auth Tabs Toggle -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+                    <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+                </div>
+
+                <!-- Alert Message Box -->
+                <div id="alert-box" class="alert d-none">
+                    <i id="alert-icon" class="fa-solid"></i>
+                    <span id="alert-text"></span>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-username">Username or Email</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="login-username" class="form-control" placeholder="Enter username or email" required autocomplete="username">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="login-btn">
+                        <span>Sign In</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <!-- Registration Form -->
+                <form id="register-form" class="d-none">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="register-username" class="form-control" placeholder="Choose a username" autocomplete="username">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="register-email" class="form-control" placeholder="name@example.com" autocomplete="email">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="register-password" class="form-control" placeholder="••••••••" autocomplete="new-password">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="register-confirm-password" class="form-control" placeholder="••••••••" autocomplete="new-password">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="register-btn">
+                        <span>Create Account</span>
+                        <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Client-side script -->
+    <script src="js/auth.js"></script>
+</body>
+</html>
