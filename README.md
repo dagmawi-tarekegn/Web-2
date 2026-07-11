@@ -1,49 +1,36 @@
 # Personal Finance Tracker
-
-A lightweight Personal Finance Tracker built with **Node.js, Express, SQLite, and Vanilla HTML/CSS/JS**. It helps users track income/expenses and view financial summaries.
-
+A simple Personal Finance Tracker built using **Node.js, Express, SQLite, and Vanilla HTML/CSS/JS**. It enables users to manage income/expenses and check financial overviews.
 ---
-
-## 🚀 Features
-
-*   **User Accounts**: Signup/login with hashed passwords (`bcryptjs`) and JWT authentication.
-*   **Categories**: Custom categories and system defaults (e.g. Salary, Rent, Food).
-*   **Transactions**: CRUD operations on income/expense transactions.
-*   **Dashboard**: Real-time stats (Income, Expenses, Balance) and category breakdowns.
-*   **User Isolation**: Users can only see and edit their own categories and transactions.
-
+## Features
+*   **User Accounts**: Registration/login with encrypted passwords (`bcryptjs`) and JWT based authentication.
+*   **Categories**: Custom categories along with built in defaults (e.g. Salary, Rent, Food).
+*   **Transactions**: Full CRUD support for income/expense entries.
+*   **Dashboard**: Live stats (Income, Expenses, Balance) and category wise breakdowns.
+*   **User Isolation**: Each user can only view and modify their own categories and transactions.
 ---
-
-## 🛠️ Setup & Running
-
+## Setup & Running
 ### 1. Install dependencies:
 ```bash
 npm install
 ```
-
-### 2. Configure environment:
-Create a `.env` file in the root folder:
+### 2. Set up environment:
+Create a `.env` file in the project root:
 ```env
 PORT=3000
 JWT_SECRET=finance_tracker_jwt_secret_token_key_2026
 ```
-
-### 3. Start application:
+### 3. Launch application:
 ```bash
 npm start
 ```
-This automatically initializes the SQLite database and populates standard categories.
-
-### 4. Open in browser:
-Navigate to:
+This automatically sets up the SQLite database and seeds the default categories.
+### 4. Open in your browser:
+Go to:
 ```text
 http://localhost:3000/login.html
 ```
-
 ---
-
-## 📂 Project Structure
-
+## Project Structure
 ```text
 web-2/
 ├── config/db.js          # SQLite database connection
@@ -55,4 +42,3 @@ web-2/
 ├── schema.sql            # Database DDL schema
 └── server.js             # Main server file
 ```
-
